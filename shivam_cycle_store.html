@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shivam Cycle Store | Premium Bicycles in Chakia</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        accent: {
+                            500: '#f59e0b', // Amber for highlights
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f8fafc; /* slate-50 */
+            color: #0f172a; /* slate-900 */
+            overflow-x: hidden;
+        }
+        
+        /* SPA Page Transition Logic */
+        .page-view {
+            display: none;
+            opacity: 0;
+        }
+        .page-view.active {
+            display: block;
+            animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Glassmorphism utilities */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        /* Gradients */
+        .text-gradient {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #064e3b 0%, #022c22 100%);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-500 selection:text-white flex flex-col min-h-screen">
+
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <!-- Logo -->
+                <a href="#home" class="flex-shrink-0 flex items-center group">
+                    <div class="w-12 h-12 bg-brand-600 rounded-2xl flex items-center justify-center mr-4 shadow-lg shadow-brand-500/30 group-hover:bg-brand-500 transition-colors">
+                        <i class="fa-solid fa-bicycle text-white text-2xl group-hover:animate-bounce"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-heading font-extrabold text-2xl text-slate-900 tracking-tight leading-none">Shivam <span class="text-brand-600">Cycle Store</span></span>
+                        <span class="text-xs font-semibold text-slate-500 tracking-widest uppercase mt-1">Chakia, Bihar</span>
+                    </div>
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex space-x-1 items-center bg-slate-100/50 p-1.5 rounded-full border border-slate-200">
+                    <a href="#home" class="nav-link px-6 py-2.5 rounded-full text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-white transition-all duration-300">Home</a>
+                    <a href="#about" class="nav-link px-6 py-2.5 rounded-full text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-white transition-all duration-300">About</a>
+                    <a href="#services" class="nav-link px-6 py-2.5 rounded-full text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-white transition-all duration-300">Services</a>
+                    <a href="#reviews" class="nav-link px-6 py-2.5 rounded-full text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-white transition-all duration-300">Reviews</a>
+                    <a href="#contact" class="nav-link px-6 py-2.5 rounded-full text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 shadow-md shadow-brand-500/20 transition-all duration-300 transform hover:-translate-y-0.5">Contact Us</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-700 focus:outline-none p-3 rounded-xl bg-slate-100 hover:bg-slate-200 transition-colors">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white/95 backdrop-blur-xl border-t border-slate-100 shadow-2xl absolute w-full left-0 origin-top transform transition-all duration-300">
+            <div class="px-6 py-8 space-y-3 flex flex-col">
+                <a href="#home" class="mobile-link text-xl font-heading font-semibold text-slate-800 py-3 border-b border-slate-100">Home</a>
+                <a href="#about" class="mobile-link text-xl font-heading font-semibold text-slate-800 py-3 border-b border-slate-100">About Store</a>
+                <a href="#services" class="mobile-link text-xl font-heading font-semibold text-slate-800 py-3 border-b border-slate-100">Our Services</a>
+                <a href="#reviews" class="mobile-link text-xl font-heading font-semibold text-slate-800 py-3 border-b border-slate-100">Customer Reviews</a>
+                <a href="#contact" class="mobile-link mt-6 text-center text-lg font-semibold text-white bg-brand-600 py-4 rounded-xl shadow-lg hover:bg-brand-700 transition-colors">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT AREA (SPA Container) -->
+    <main class="flex-grow pt-24" id="app-root">
+
+        <!-- HOME PAGE -->
+        <div id="home" class="page-view">
+            <!-- Existing Hero Section -->
+            <section class="relative min-h-[90vh] flex items-center pt-10 pb-20 overflow-hidden">
+                <div class="absolute inset-0 z-0">
+                    <div class="absolute inset-0 bg-slate-900/10 z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1485965120184-e220f721d03e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Bicycle riding on road" class="w-full h-full object-cover object-center filter opacity-20" />
+                    <div class="absolute top-20 right-10 w-96 h-96 bg-brand-200/50 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-float z-0"></div>
+                    <div class="absolute bottom-20 left-10 w-72 h-72 bg-emerald-200/50 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-float z-0" style="animation-delay: 2s;"></div>
+                </div>
+                
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div class="text-left">
+                            <div class="inline-flex items-center gap-2 py-2 px-5 rounded-full bg-white shadow-sm border border-slate-100 text-brand-600 font-semibold text-sm mb-8 animate-fade-in-up">
+                                <span class="relative flex h-3 w-3">
+                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                                  <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-500"></span>
+                                </span>
+                                Top Rated in Chakia
+                            </div>
+                            <h1 class="text-6xl lg:text-7xl font-heading font-extrabold text-slate-900 mb-6 leading-[1.1] tracking-tight">
+                                Ride With <br />
+                                <span class="text-gradient">Passion &</span> <br />
+                                Performance.
+                            </h1>
+                            <p class="text-xl text-slate-600 mb-10 font-medium max-w-lg leading-relaxed">
+                                Discover premium bicycles, expert repair services, and genuine spare parts at Gokul Market, Chakia.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <a href="#services" class="bg-brand-600 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-brand-700 transition-all duration-300 shadow-[0_8px_30px_rgb(16,185,129,0.3)] transform hover:-translate-y-1 text-center flex items-center justify-center gap-2">
+                                    Explore Cycles <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+                                <a href="#contact" class="bg-white text-slate-800 border-2 border-slate-200 px-8 py-4 rounded-xl font-bold text-lg hover:border-brand-500 hover:text-brand-600 transition-all duration-300 text-center">
+                                    Visit Store
+                                </a>
+                            </div>
+                            
+                            <div class="mt-12 flex items-center gap-6 text-sm font-semibold text-slate-500">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-check-circle text-brand-500 text-lg"></i> Authentic Brands
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-check-circle text-brand-500 text-lg"></i> Expert Mechanics
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="relative hidden lg:block">
+                            <div class="relative z-10 rounded-[2.5rem] overflow-hidden shadow-2xl border-[8px] border-white transform rotate-3 hover:rotate-0 transition-transform duration-500">
+                                <img src="https://images.unsplash.com/photo-1576435728678-68ce0b622607?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Premium Bicycle" class="w-full h-auto object-cover">
+                            </div>
+                            <div class="absolute -bottom-8 -left-8 bg-white p-6 rounded-2xl shadow-xl z-20 border border-slate-100 flex items-center gap-4 animate-float">
+                                <div class="w-14 h-14 bg-amber-100 rounded-full flex items-center justify-center text-amber-500 text-2xl">
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <div>
+                                    <p class="font-heading font-bold text-slate-900 text-xl">4.9/5 Rating</p>
+                                    <p class="text-sm text-slate-500 font-medium">From 500+ Customers</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Quick Features Strip -->
+            <div class="bg-brand-900 py-12 relative z-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-brand-700/50">
+                        <div class="px-6 pb-6 md:pb-0">
+                            <i class="fa-solid fa-map-location-dot text-4xl text-brand-400 mb-4"></i>
+                            <h3 class="text-xl font-bold text-white mb-2">Prime Location</h3>
+                            <p class="text-brand-100/70 text-sm">Gokul Market, Motihari Rd, Chakia</p>
+                        </div>
+                        <div class="px-6 py-6 md:py-0">
+                            <i class="fa-solid fa-gears text-4xl text-brand-400 mb-4"></i>
+                            <h3 class="text-xl font-bold text-white mb-2">Complete Servicing</h3>
+                            <p class="text-brand-100/70 text-sm">A to Z repair & maintenance</p>
+                        </div>
+                        <div class="px-6 pt-6 md:pt-0">
+                            <i class="fa-solid fa-boxes-stacked text-4xl text-brand-400 mb-4"></i>
+                            <h3 class="text-xl font-bold text-white mb-2">Vast Inventory</h3>
+                            <p class="text-brand-100/70 text-sm">Huge stock of cycles & spares</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NEW EXPANDED HOME CONTENT -->
+            <section class="py-24 bg-white relative">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+                    <div>
+                        <h2 class="text-brand-600 font-bold tracking-wider uppercase text-sm mb-3">Welcome to our World</h2>
+                        <h3 class="font-heading text-4xl font-extrabold text-slate-900 mb-6">The Philosophy of Cycling</h3>
+                        <div class="prose prose-lg text-slate-600 leading-relaxed space-y-6">
+                            <p>Cycling is much more than a mode of transportation. It is a philosophy of life. At Shivam Cycle Store, we view every rotation of the pedal as a step toward a healthier, more sustainable, and more joyous existence. When you choose to ride, you are making a conscious decision to slow down in a fast-paced world, to engage with your environment, and to power your journey with your own energy. It is an act of defiance against sedentary lifestyles and an embrace of the open air.</p>
+                            <p>Our philosophy is rooted in the belief that everyone, regardless of age, background, or physical ability, deserves to experience the profound freedom that a bicycle offers. We do not just sell metal frames and rubber tires; we sell the promise of Sunday morning adventures, the joy of a child's first independent ride without training wheels, and the quiet satisfaction of a daily commute powered solely by human strength. A bicycle is an equalizer. It belongs on the bustling streets of Chakia just as much as it belongs on the quiet rural paths stretching out toward the horizon.</p>
+                            <p>Furthermore, we understand that a bicycle becomes a trusted companion. Just as a rider takes care of their body, they must take care of their machine. This symbiotic relationship between human and mechanics fascinates us. It is why we treat every bicycle that enters our shop with the utmost respect. Whether it is a top-tier alloy mountain bike or a vintage commuter cycle that has been in the family for decades, it holds value. Our philosophy dictates that no repair is too small, no question is too basic, and every customer is a fellow traveler on the road of life.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-10 rounded-3xl border border-slate-100">
+                        <h3 class="font-heading text-3xl font-extrabold text-slate-900 mb-6">Health & Wellness Benefits</h3>
+                        <div class="prose prose-lg text-slate-600 leading-relaxed space-y-6">
+                            <p>The human body was designed to move. In the modern era, finding time for consistent, enjoyable exercise can be a challenge. Cycling stands out as one of the most accessible and effective forms of cardiovascular workout available. It is low-impact, meaning it puts significantly less stress on your joints compared to running or high-intensity interval training, making it suitable for people of all ages.</p>
+                            <p>Regular cycling strengthens the heart muscles, lowers resting pulse rates, and reduces blood fat levels. Research has shown that people who cycle to work have two to three times less exposure to pollution than car commuters, and their lung function improves over time. Beyond the physical, the mental health benefits are immense. The rhythmic nature of pedaling, combined with outdoor exposure, is proven to reduce stress, anxiety, and depression. The release of endorphins during a ride leaves you feeling energized and positive, setting a great tone for the day ahead.</p>
+                            <p>At Shivam Cycle Store, we actively promote cycling as a core pillar of a healthy lifestyle in Chakia. We frequently consult with customers who are looking to manage their weight, recover from injuries, or simply find a joyful way to stay active. We can guide you to the right type of bicycle—be it an upright hybrid for comfort, or a lightweight road bike for speed—that aligns with your specific health goals.</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="font-heading text-4xl font-extrabold text-slate-900 mb-6">Our Environmental Impact</h3>
+                        <div class="prose prose-lg text-slate-600 leading-relaxed space-y-6">
+                            <p>Climate change and environmental degradation are pressing global issues, but the solutions often start at the local level. The bicycle is arguably the most efficient and environmentally friendly vehicle ever invented. It requires zero fossil fuels, emits zero greenhouse gases, and operates in near-total silence, reducing noise pollution in our busy market areas.</p>
+                            <p>Every time a resident of Chakia chooses to ride their bicycle to the local store instead of taking a motorcycle or car, they are making a tangible positive impact on our local air quality. Consider the manufacturing footprint as well: the resources required to build a single automobile could produce hundreds of bicycles. By maintaining and repairing bicycles, Shivam Cycle Store is actively participating in the circular economy. We believe in fixing rather than replacing, ensuring that bicycles stay on the road and out of landfills for as long as possible.</p>
+                            <p>We are proud to be a green business. We properly recycle old tires, metal components, and packaging materials. Our commitment to the environment is not just a marketing slogan; it is woven into the very fabric of how we operate daily. When you buy from us, you are partnering with a business that cares deeply about the ecological legacy we leave for the next generation of riders.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-brand-50 p-10 rounded-3xl border border-brand-100">
+                        <h3 class="font-heading text-3xl font-extrabold text-brand-900 mb-6">Community Rides in Chakia</h3>
+                        <div class="prose prose-lg text-brand-800 leading-relaxed space-y-6">
+                            <p>Bicycling is an inherently social activity. It brings people together across different age groups, professions, and backgrounds. To foster this spirit of unity, Shivam Cycle Store is heavily involved in organizing and sponsoring community rides throughout Chakia and its neighboring districts. These events are not races; they are celebrations of movement and community.</p>
+                            <p>Our weekend morning rides have grown from a small group of enthusiasts to a large, vibrant peloton that tours the scenic outskirts of our town. It is a fantastic opportunity for beginners to learn group riding etiquette, for seasoned riders to share their knowledge, and for everyone to discover new routes they might not have explored on their own. We often conclude these rides with a communal breakfast, fostering friendships that extend far beyond the saddle.</p>
+                            <p>We also run safety workshops for children, teaching them the rules of the road, the importance of wearing helmets, and basic maintenance like checking tire pressure and fixing a dropped chain. Empowering the youth with these skills ensures a safer, more confident generation of cyclists. If you are interested in joining our next community ride, please speak to any of our staff members during your next visit. We welcome riders of all skill levels with open arms.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ABOUT PAGE -->
+        <div id="about" class="page-view">
+            <!-- Existing About Header & Intro -->
+            <section class="py-24 bg-white relative">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-brand-600 font-bold tracking-wider uppercase text-sm mb-3">Our Story</h2>
+                        <h3 class="font-heading text-4xl md:text-5xl font-extrabold text-slate-900">Driven by passion. <br/>Rooted in <span class="text-gradient">Chakia</span>.</h3>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
+                        <div class="relative">
+                            <div class="grid grid-cols-2 gap-4">
+                                <img src="https://images.unsplash.com/photo-1558269720-37731737be70?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Shop Mechanic" class="rounded-3xl h-64 w-full object-cover shadow-lg transform translate-y-8">
+                                <img src="https://images.unsplash.com/photo-1511994298241-608e28f14fde?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Bicycles displayed" class="rounded-3xl h-80 w-full object-cover shadow-xl">
+                            </div>
+                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-24 h-24 rounded-full shadow-2xl flex items-center justify-center border-4 border-slate-50">
+                                <i class="fa-solid fa-heart text-brand-500 text-3xl"></i>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="text-lg text-slate-600 mb-6 leading-relaxed">
+                                At <strong>Shivam Cycle Store</strong>, we believe a bicycle is more than just a machine; it's a tool for freedom, fitness, and environmental sustainability. For years, we have been the trusted cycling destination for the residents of Chakia and surrounding areas.
+                            </p>
+                            <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+                                Our mission is simple: provide top-tier, reliable bicycles and unparalleled service. Whether you are buying a tricycle for your toddler's first ride, a gear cycle for fitness, or need an urgent puncture fixed before work, our experienced team is here with a smile.
+                            </p>
+
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                                    <h4 class="font-heading font-bold text-3xl text-slate-900 mb-1">1000+</h4>
+                                    <p class="text-sm font-semibold text-brand-600">Happy Cyclists</p>
+                                </div>
+                                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                                    <h4 class="font-heading font-bold text-3xl text-slate-900 mb-1">100%</h4>
+                                    <p class="text-sm font-semibold text-brand-600">Genuine Parts</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- NEW EXPANDED ABOUT CONTENT -->
+                    <div class="max-w-4xl mx-auto space-y-16">
+                        <div>
+                            <h3 class="font-heading text-4xl font-extrabold text-slate-900 mb-6">Our Epic History</h3>
+                            <div class="prose prose-lg text-slate-600 leading-relaxed space-y-6">
+                                <p>The story of Shivam Cycle Store is a tapestry woven with hard work, dedication, and an unyielding love for bicycles. Decades ago, when Gokul Market was just beginning to take shape as a commercial hub on Motihari Road, our founder recognized a vital need within the Chakia community. People needed reliable, affordable transportation. Thus, with a small inventory of sturdy, single-speed roadster bicycles and a toolbox full of heavy iron wrenches, the doors of Shivam Cycle Store were opened.</p>
+                                <p>In those early days, the shop was modest, but the work ethic was colossal. We built a reputation not through flashy advertising, but through the sweat of our brows and the grease on our hands. When a farmer needed his heavy-duty carrier cycle repaired to transport goods to the market, we were there. When a postman needed his rims trued after hitting a deep pothole, we fixed it immediately. Word of mouth spread rapidly. Shivam Cycle Store became synonymous with trust.</p>
+                                <p>As the years turned into decades, the landscape of cycling evolved, and so did we. We witnessed the introduction of multi-geared bicycles, the surge in popularity of mountain bikes with suspension systems, and the recent wave of lightweight alloy frames. Instead of resisting change, we embraced it. Our mechanics underwent rigorous continuous training to understand complex derailleur systems, hydraulic disc brakes, and intricate suspension forks. We expanded our showroom to house national and international brands, ensuring that the people of Chakia had access to the same world-class bicycles as those living in metropolitan cities.</p>
+                                <p>Despite our growth, the core of who we are has never changed. We are still that friendly neighborhood shop where you can walk in, have a cup of tea, and talk about your latest cycling adventure. We have served multiple generations of families—the child who bought their first tricycle from us is now returning to buy a mountain bike for their own teenager. This continuity and trust are our greatest achievements.</p>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="bg-slate-900 p-8 rounded-3xl text-white">
+                                <h3 class="font-heading text-2xl font-bold mb-4">Our Mission</h3>
+                                <p class="text-slate-300 leading-relaxed">To empower the Chakia community with access to high-quality bicycles and expert maintenance services. We strive to create an inclusive environment where every customer receives personalized guidance, ensuring they find the perfect ride to enhance their health, happiness, and mobility, while fostering a culture of exceptional customer care and technical excellence.</p>
+                            </div>
+                            <div class="bg-brand-600 p-8 rounded-3xl text-white">
+                                <h3 class="font-heading text-2xl font-bold mb-4">Our Vision</h3>
+                                <p class="text-brand-100 leading-relaxed">To be the undisputed premier destination for cycling enthusiasts and everyday commuters in the region. We envision a future where cycling is a primary mode of local transport and recreation in Chakia, supported by our store's unwavering commitment to sustainability, community engagement, and the promotion of a healthy, active lifestyle for all generations.</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="font-heading text-4xl font-extrabold text-slate-900 mb-6">Our Core Values</h3>
+                            <div class="space-y-6">
+                                <div class="flex gap-4">
+                                    <div class="flex-shrink-0 w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center text-amber-600 text-xl"><i class="fa-solid fa-handshake"></i></div>
+                                    <div>
+                                        <h4 class="text-xl font-bold text-slate-900">Uncompromising Integrity</h4>
+                                        <p class="text-slate-600 mt-2">We believe in transparent pricing, honest mechanical advice, and never selling a customer a product or service they do not need. Your trust is more valuable than a quick profit.</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4">
+                                    <div class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 text-xl"><i class="fa-solid fa-wrench"></i></div>
+                                    <div>
+                                        <h4 class="text-xl font-bold text-slate-900">Technical Mastery</h4>
+                                        <p class="text-slate-600 mt-2">Bicycle mechanics is an art form. We are dedicated to lifelong learning, constantly updating our skills and tools to handle the most modern and complex cycling technologies with precision.</p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-4">
+                                    <div class="flex-shrink-0 w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 text-xl"><i class="fa-solid fa-users"></i></div>
+                                    <div>
+                                        <h4 class="text-xl font-bold text-slate-900">Community First</h4>
+                                        <p class="text-slate-600 mt-2">We are a product of Chakia, and we give back to Chakia. From supporting local events to providing free basic checkups for school students, we are deeply invested in the well-being of our community.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="font-heading text-4xl font-extrabold text-slate-900 mb-6">The Evolution of Bicycles</h3>
+                            <div class="prose prose-lg text-slate-600 leading-relaxed space-y-6">
+                                <p>To truly appreciate the modern bicycle, one must understand its incredible history. The journey began in the early 19th century with the "Dandy Horse," a heavy wooden contraption with no pedals, requiring the rider to push along the ground with their feet. It was a crude beginning, but it sparked an engineering revolution. By the 1860s, pedals were attached to the front wheel, creating the "Boneshaker"—aptly named due to its stiff wooden wheels and iron rims that provided a jarring ride over cobblestone streets.</p>
+                                <p>The pursuit of speed led to the iconic "Penny Farthing" in the 1870s, featuring a massive front wheel and a tiny rear wheel. While fast, they were notoriously dangerous and prone to throwing riders headfirst over the handlebars. The true breakthrough came with the invention of the "Safety Bicycle" in the late 1880s. This design featured two wheels of equal size, a chain drive to the rear wheel, and most importantly, pneumatic rubber tires. This blueprint remains the foundation of virtually every bicycle we sell today at Shivam Cycle Store.</p>
+                                <p>Throughout the 20th century, materials evolved from heavy high-tensile steel to lighter chromoly, and eventually to aerospace-grade aluminum and carbon fiber. Drivetrains evolved from single-speed freewheels to highly indexed cassettes offering over 20 unique gear combinations, allowing riders to conquer steep inclines with ease. Braking systems transitioned from crude friction pads pressing against the tire to powerful hydraulic disc brakes capable of stopping a bike instantly in pouring rain.</p>
+                                <p>Today, the bicycles lining our showroom floor in Gokul Market are marvels of modern engineering. They represent over two centuries of refinement. Yet, for all their technological advancements, the fundamental magic remains unchanged: a simple, elegant machine that amplifies human energy, offering unparalleled freedom. We are proud to be the custodians of this incredible legacy in Chakia.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- SERVICES PAGE -->
+        <div id="services" class="page-view">
+            <section class="py-24 bg-slate-50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <!-- Existing Services Header & Grid -->
+                    <div class="text-center max-w-3xl mx-auto mb-20">
+                        <h2 class="text-brand-600 font-bold tracking-wider uppercase text-sm mb-3">Our Offerings</h2>
+                        <h3 class="font-heading text-4xl md:text-5xl font-extrabold text-slate-900 mb-6">Comprehensive Cycling Solutions.</h3>
+                        <p class="text-lg text-slate-600">From the moment you buy your bike to years of maintenance, we are with you on every mile.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-2xl hover:border-brand-200 transition-all duration-300 group">
+                            <div class="w-16 h-16 bg-brand-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brand-500 group-hover:-translate-y-2 transition-all duration-300">
+                                <i class="fa-solid fa-bicycle text-3xl text-brand-600 group-hover:text-white transition-colors"></i>
+                            </div>
+                            <h4 class="font-heading font-bold text-xl text-slate-900 mb-3">New Bicycles</h4>
+                            <p class="text-slate-500 text-sm leading-relaxed mb-6">Extensive range of kids, standard, gear, and mountain bikes from top national and international brands.</p>
+                            <ul class="space-y-2 text-sm font-medium text-slate-700">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-500 mr-2 text-xs"></i> Test rides available</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-500 mr-2 text-xs"></i> Warranty included</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-2xl hover:border-brand-200 transition-all duration-300 group relative">
+                            <div class="absolute -top-3 -right-3 bg-accent-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">Most Popular</div>
+                            <div class="w-16 h-16 bg-brand-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brand-500 group-hover:-translate-y-2 transition-all duration-300">
+                                <i class="fa-solid fa-wrench text-3xl text-brand-600 group-hover:text-white transition-colors"></i>
+                            </div>
+                            <h4 class="font-heading font-bold text-xl text-slate-900 mb-3">Expert Repairs</h4>
+                            <p class="text-slate-500 text-sm leading-relaxed mb-6">Our master mechanics diagnose and fix issues quickly. From simple punctures to full gear tuning and brake bleeds.</p>
+                            <ul class="space-y-2 text-sm font-medium text-slate-700">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-500 mr-2 text-xs"></i> Fast turnaround</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-500 mr-2 text-xs"></i> Affordable pricing</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-2xl hover:border-brand-200 transition-all duration-300 group">
+                            <div class="w-16 h-16 bg-brand-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brand-500 group-hover:-translate-y-2 transition-all duration-300">
+                                <i class="fa-solid fa-gear text-3xl text-brand-600 group-hover:text-white transition-colors"></i>
+                            </div>
+                            <h4 class="font-heading font-bold text-xl text-slate-900 mb-3">Genuine Spares</h4>
+                            <p class="text-slate-500 text-sm leading-relaxed mb-6">Keep your ride smooth with authentic replacement parts: tires, tubes, chains, cassettes, and pedals.</p>
+                            <ul class="space-y-2 text-sm font-medium text-slate-700">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-500 mr-2 text-xs"></i> OEM Parts</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-500 mr-2 text-xs"></i> High durability</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-2xl hover:border-brand-200 transition-all duration-300 group">
+                            <div class="w-16 h-16 bg-brand-50 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brand-500 group-hover:-translate-y-2 transition-all duration-300">
+                                <i class="fa-solid fa-helmet-safety text-3xl text-brand-600 group-hover:text-white transition-colors"></i>
+                            </div>
+                            <h4 class="font-heading font-bold text-xl text-slate-900 mb-3">Accessories</h4>
+                            <p class="text-slate-500 text-sm leading-relaxed mb-6">Upgrade your cycling experience with premium accessories like helmets, locks, lights, bottles, and mudguards.</p>
+                            <ul class="space-y-2 text-sm font-medium text-slate-700">
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-500 mr-2 text-xs"></i> Safety gear</li>
+                                <li class="flex items-center"><i class="fa-solid fa-check text-brand-500 mr-2 text-xs"></i> Custom attachments</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- NEW EXPANDED SERVICES CONTENT -->
+                    <div class="max-w-5xl mx-auto space-y-16">
+                        
+                        <div class="text-center border-b border-slate-200 pb-8">
+                            <h3 class="font-heading text-4xl font-extrabold text-slate-900">Deep Dive into Our Technical Services</h3>
+                            <p class="text-slate-500 mt-4 max-w-2xl mx-auto">We don't just fix bikes; we restore them to factory perfection. Read below to understand the meticulous processes our mechanics undertake to ensure your safety and performance.</p>
+                        </div>
+
+                        <!-- Deep Dive 1 -->
+                        <div class="bg-white rounded-[2rem] p-8 md:p-12 shadow-sm border border-slate-100 flex flex-col md:flex-row gap-8 items-start">
+                            <div class="w-16 h-16 bg-slate-100 rounded-full flex-shrink-0 flex items-center justify-center text-slate-600 text-2xl">
+                                <i class="fa-solid fa-cogs"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-heading text-2xl font-bold text-slate-900 mb-4">Precision Gear Indexing & Drivetrain Tuning</h4>
+                                <div class="prose prose-lg text-slate-600 space-y-4">
+                                    <p>A properly functioning drivetrain is the heart of a geared bicycle. If your gears are slipping, grinding, or hesitating when you shift, you are losing power and risking damage to the components. Our precision gear indexing service is a highly technical process that involves far more than just turning a barrel adjuster.</p>
+                                    <p>First, our mechanics inspect the derailleur hanger for absolute straightness using a specialized alignment gauge. Even a millimeter of bend caused by a minor fall can throw off the entire shifting system. We then meticulously clean the cassette and chain to remove built-up grime, which is the primary cause of premature wear. We check the chain stretch using a digital caliper; if it has elongated beyond the safe limit, we recommend replacement to save your more expensive cassette and chainrings from destruction.</p>
+                                    <p>Once the physical components are verified, we begin the tuning process. We adjust the high and low limit screws to prevent the chain from derailing into the spokes or the frame. We then set the B-tension to ensure the jockey wheel is at the optimal distance from the cassette cogs. Finally, we fine-tune the cable tension so that every click of your shifter results in a crisp, instantaneous, and silent shift, both up and down the block. The result is a buttery-smooth ride that maximizes your pedaling efficiency.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Deep Dive 2 -->
+                        <div class="bg-white rounded-[2rem] p-8 md:p-12 shadow-sm border border-slate-100 flex flex-col md:flex-row gap-8 items-start">
+                            <div class="w-16 h-16 bg-slate-100 rounded-full flex-shrink-0 flex items-center justify-center text-slate-600 text-2xl">
+                                <i class="fa-solid fa-compact-disc"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-heading text-2xl font-bold text-slate-900 mb-4">Hydraulic & Mechanical Brake Overhaul</h4>
+                                <div class="prose prose-lg text-slate-600 space-y-4">
+                                    <p>Your safety is our absolute priority, and nothing is more critical to safety than a reliable braking system. Whether your bicycle utilizes traditional V-brakes, mechanical disc brakes, or advanced hydraulic systems, our experts have the training to service them flawlessly.</p>
+                                    <p>For mechanical systems, we replace frayed inner cables and lubricate the housing to eliminate friction. We ensure the brake pads are striking the rim or rotor squarely, toeing them in slightly to prevent the dreaded high-pitched squeal. We balance the spring tension so both brake arms actuate simultaneously, providing a firm, responsive lever feel.</p>
+                                    <p>Hydraulic brake bleeding is a specialized service we excel at. Over time, air bubbles and moisture can enter the hydraulic lines, causing the brake levers to feel "spongy" and dramatically reducing stopping power. We use professional bleed kits specific to brands like Shimano, SRAM, and Tektro to flush out the old, contaminated mineral oil or DOT fluid. We inject fresh, high-performance fluid, meticulously tapping the lines to force every microscopic air bubble out through the master cylinder. The rotors are then cleaned with isopropyl alcohol, and the calipers are perfectly centered to eliminate any rubbing. You leave the store with brakes that offer immense stopping power with just a single finger's pressure.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Deep Dive 3 -->
+                        <div class="bg-white rounded-[2rem] p-8 md:p-12 shadow-sm border border-slate-100 flex flex-col md:flex-row gap-8 items-start">
+                            <div class="w-16 h-16 bg-slate-100 rounded-full flex-shrink-0 flex items-center justify-center text-slate-600 text-2xl">
+                                <i class="fa-solid fa-circle-notch"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-heading text-2xl font-bold text-slate-900 mb-4">Precision Wheel Truing & Hub Servicing</h4>
+                                <div class="prose prose-lg text-slate-600 space-y-4">
+                                    <p>The roads in and around Chakia can be tough on bicycle wheels. Potholes, rocks, and general wear and tear can cause a wheel to become "untrue" (wobbly) or lose spoke tension. Riding on a wobbly wheel not only feels unstable but also causes uneven tire wear and drastically reduces braking performance on rim-brake bikes.</p>
+                                    <p>Our truing process involves mounting the wheel in a professional truing stand equipped with dial indicators. A skilled mechanic plucks the spokes to gauge tension and uses a specialized spoke wrench to make micro-adjustments. We correct lateral true (side-to-side wobble), radial true (up-and-down hop), and dish (centering the rim over the hub). We bring the entire wheel up to an even, high spoke tension, ensuring it is structurally sound and ready to handle heavy loads.</p>
+                                    <p>Simultaneously, we address the hub. A gritty or loose hub bearing will rob you of speed and eventually destroy the hub shell. We completely disassemble the hub, clean the axles and cups, and inspect the ball bearings for pitting or wear. We reassemble them with premium, water-resistant marine-grade grease, adjusting the cone tension to achieve the perfect balance between zero play and infinite, frictionless spinning.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Deep Dive 4 -->
+                        <div class="bg-brand-900 rounded-[2rem] p-8 md:p-12 shadow-xl border border-brand-700 flex flex-col md:flex-row gap-8 items-start text-white">
+                            <div class="w-16 h-16 bg-brand-700 rounded-full flex-shrink-0 flex items-center justify-center text-brand-300 text-2xl">
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-heading text-2xl font-bold text-white mb-4">The Ultimate "Back to New" Full Overhaul</h4>
+                                <div class="prose prose-lg text-brand-100 space-y-4">
+                                    <p>If your bicycle has been sitting in a garage for years, or if you have put thousands of grueling kilometers on it, our Full Overhaul service is the answer. This is our flagship service, designed to restore your machine to showroom condition, both aesthetically and mechanically.</p>
+                                    <p>We strip the bicycle down to the bare frame. Every single component—bottom bracket, headset, derailleurs, brakes, and hubs—is removed. The frame and fork are deep-cleaned, inspected for microscopic stress fractures, and polished with protective wax. All mechanical components are placed in a sonic cleaner to remove deeply embedded dirt and old grease.</p>
+                                    <p>During reassembly, we replace all consumable parts as standard: new stainless steel inner cables, slick outer housing, fresh brake pads, and high-quality bearings. All threaded interfaces are treated with anti-seize compound or thread-locker as appropriate. The bike is then built up with the meticulous care of a master builder. Gears are indexed, brakes are bled or tensioned, and wheels are trued. Finally, we take the bicycle for a rigorous test ride to bed in the brakes and pre-stretch the cables. When you receive your bicycle back, it will look, feel, and ride as if it just rolled off the factory floor. It is an investment that breathes years of new life into your beloved cycle.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Maintenance Tips -->
+                        <div class="bg-amber-50 rounded-[2rem] p-8 md:p-12 border border-amber-200">
+                            <h4 class="font-heading text-3xl font-bold text-slate-900 mb-8 text-center">Rider's Essential Maintenance Guide</h4>
+                            <p class="text-slate-600 mb-8 text-center max-w-2xl mx-auto">While we are always here to help in Gokul Market, performing basic maintenance at home will extend the life of your bicycle and keep you safe on the road. Follow these expert tips:</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div>
+                                    <h5 class="font-bold text-lg text-slate-900 mb-2">1. The Pre-Ride "M-Check"</h5>
+                                    <p class="text-slate-600 text-sm leading-relaxed mb-4">Before every ride, perform a quick visual and physical inspection tracing the shape of an 'M' over your bike. Start at the front wheel axle (check quick-release), move up to the handlebars (check headset tightness), down to the bottom bracket (check crank arms), up to the seat post (ensure saddle is secure), and finally down to the rear wheel axle. This 30-second check prevents critical failures.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-lg text-slate-900 mb-2">2. Proper Tire Inflation</h5>
+                                    <p class="text-slate-600 text-sm leading-relaxed mb-4">Riding on under-inflated tires is the leading cause of "pinch flats" and makes pedaling unnecessarily difficult. Check the sidewall of your tire for the recommended PSI (Pounds per Square Inch). Use a track pump with a gauge to inflate them properly every week. Road bikes require high pressure (80-100+ PSI), while mountain bikes need less (30-50 PSI) for grip.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-lg text-slate-900 mb-2">3. Chain Lubrication (The Right Way)</h5>
+                                    <p class="text-slate-600 text-sm leading-relaxed mb-4">Never apply heavy motor oil or WD-40 to a bicycle chain, as they attract dirt and create a grinding paste. Use a bicycle-specific "dry" or "wet" lube depending on the season. Apply one small drop to each chain link roller while pedaling backward. Crucially, let it sit for 5 minutes, then take a clean rag and wipe off ALL excess lube from the outside of the chain. The lubrication is only needed inside the rollers.</p>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-lg text-slate-900 mb-2">4. Keeping it Clean</h5>
+                                    <p class="text-slate-600 text-sm leading-relaxed mb-4">A clean bike is a fast and durable bike. Avoid high-pressure power washers, as they force water past the bearing seals into your hubs and bottom bracket, causing rust. Instead, use a bucket of warm soapy water, a soft sponge for the frame, and a stiff brush for the cassette and chainrings. Rinse gently with a low-pressure hose and bounce the bike to dry it off.</p>
+                                </div>
+                                <div class="md:col-span-2">
+                                    <h5 class="font-bold text-lg text-slate-900 mb-2">5. Listen to Your Bike</h5>
+                                    <p class="text-slate-600 text-sm leading-relaxed mb-4">Bicycles are generally silent machines. If you hear creaking, clicking, squealing, or grinding, something is wrong. A rhythmic click while pedaling often indicates a loose bottom bracket or pedal. A squealing brake means contaminated pads or poor alignment. Do not ignore these noises; they are early warning signs of component failure. Bring it to Shivam Cycle Store immediately for a diagnostic check.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- REVIEWS PAGE -->
+        <div id="reviews" class="page-view">
+            <section class="py-24 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    
+                    <!-- Existing Header -->
+                    <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8 pb-10 border-b border-slate-100">
+                        <div class="max-w-2xl">
+                            <h2 class="text-brand-600 font-bold tracking-wider uppercase text-sm mb-3">Customer Feedback</h2>
+                            <h3 class="font-heading text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">Loved by the <span class="text-gradient">Community</span></h3>
+                            <p class="text-lg text-slate-500">Read what our amazing customers from Chakia and surrounding villages have to say about their experience at Shivam Cycle Store. Real stories from real riders.</p>
+                        </div>
+                        <div class="flex flex-col items-end">
+                            <div class="flex gap-1 text-accent-500 text-2xl mb-2">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <p class="font-bold text-slate-900 text-lg mb-4">4.9/5 Average Rating</p>
+                            <button onclick="window.location.hash='#contact'" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-semibold hover:bg-slate-800 transition-colors shadow-lg flex items-center gap-2 group">
+                                <i class="fa-regular fa-pen-to-square group-hover:scale-110 transition-transform"></i> Leave a Review
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- EXPANDED REVIEWS GRID -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+                        
+                        <!-- Review 1 -->
+                        <div class="bg-slate-50 rounded-[2rem] p-8 md:p-10 border border-slate-200 hover:shadow-xl transition-shadow relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <i class="fa-solid fa-quote-right text-6xl text-brand-600"></i>
+                            </div>
+                            <div class="flex gap-1 text-accent-500 text-sm mb-6">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <h4 class="font-heading font-bold text-2xl text-slate-900 mb-4">"Saved My Cross-Country Tour"</h4>
+                            <div class="text-slate-600 mb-8 leading-relaxed space-y-4 text-sm md:text-base">
+                                <p>I was passing through Bihar on a long-distance cycling tour from Delhi to Kolkata. Just a few kilometers outside of Chakia, I hit a massive unmarked speed breaker at high speed. My rear wheel was completely bent out of shape, and my derailleur was wrapped in my spokes. I thought my trip was over right then and there. I managed to hitch a ride into Gokul Market and found Shivam Cycle Store.</p>
+                                <p>The owner immediately understood the gravity of my situation. Despite having a shop full of local customers, he dedicated his head mechanic to my bike. They didn't have the exact high-end touring rim I was using, but they found an incredibly sturdy local replacement and laced a completely new wheel for me from scratch within three hours. They also managed to bend my derailleur hanger back to perfect alignment using a specialized tool I didn't expect a small-town shop to have.</p>
+                                <p>Not only did they fix my bike, but they also offered me tea, let me rest in the air-conditioned section of the shop, and refused to overcharge me despite knowing I was desperate. The wheel they built held true all the way to Kolkata. I am forever indebted to their skill and hospitality. Truly world-class service hidden in Chakia!</p>
+                            </div>
+                            <div class="flex items-center gap-4 mt-auto">
+                                <div class="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xl">AS</div>
+                                <div>
+                                    <p class="font-bold text-slate-900">Arjun Singh</p>
+                                    <p class="text-sm text-slate-500">Touring Cyclist from Delhi</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Review 2 -->
+                        <div class="bg-slate-50 rounded-[2rem] p-8 md:p-10 border border-slate-200 hover:shadow-xl transition-shadow relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <i class="fa-solid fa-quote-right text-6xl text-brand-600"></i>
+                            </div>
+                            <div class="flex gap-1 text-accent-500 text-sm mb-6">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <h4 class="font-heading font-bold text-2xl text-slate-900 mb-4">"A Magical Experience for My Son"</h4>
+                            <div class="text-slate-600 mb-8 leading-relaxed space-y-4 text-sm md:text-base">
+                                <p>Buying a child's first bicycle is a huge milestone, and I wanted it to be perfect. We visited several shops in Motihari, but the salesmen were dismissive and just wanted to push whatever old stock they had. We decided to drive back to Chakia and check out Shivam Cycle Store in Gokul Market based on a neighbor's recommendation. The difference was night and day.</p>
+                                <p>The staff treated my 5-year-old son like a VIP. They didn't just show us bikes; they measured his inseam to ensure we got the exact right frame size. They explained why a lighter aluminum frame was better for him than the heavy steel ones, even though it cost slightly more. They let him test ride three different models inside the store area until he found 'the one'—a bright neon green BMX-style bike.</p>
+                                <p>What really won my heart was the delivery process. They didn't just hand over a boxed bike. They fully assembled it, double-checked every bolt, adjusted the brake levers so his small hands could reach them easily, and even installed a complimentary bell and a flashy safety flag. The smile on my son's face was priceless. The customer service here is rooted in genuine care, not just making a sale. I will never buy a cycle anywhere else.</p>
+                            </div>
+                            <div class="flex items-center gap-4 mt-auto">
+                                <div class="w-14 h-14 rounded-full bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white font-bold text-xl">PR</div>
+                                <div>
+                                    <p class="font-bold text-slate-900">Priya Ranjan</p>
+                                    <p class="text-sm text-slate-500">Local Mother & Teacher</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Review 3 -->
+                        <div class="bg-slate-50 rounded-[2rem] p-8 md:p-10 border border-slate-200 hover:shadow-xl transition-shadow relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <i class="fa-solid fa-quote-right text-6xl text-brand-600"></i>
+                            </div>
+                            <div class="flex gap-1 text-accent-500 text-sm mb-6">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i>
+                            </div>
+                            <h4 class="font-heading font-bold text-2xl text-slate-900 mb-4">"Revived My Grandfather's Vintage Cycle"</h4>
+                            <div class="text-slate-600 mb-8 leading-relaxed space-y-4 text-sm md:text-base">
+                                <p>I inherited an old, rusted Raleigh roadster from my late grandfather. It had been sitting in a damp shed for over 20 years. The chain was fused solid, the tires were rotted away, and the paint was peeling. I brought it to Shivam Cycle Store hoping they could just make it roll so I could use it as a garden ornament. The mechanic looked at it, smiled, and said, 'We can do better than that.'</p>
+                                <p>I opted for their Full Overhaul service. Over the next week, they meticulously dismantled this antique. They managed to source vintage-style whitewall tires that fit the obscure rim size. They soaked the rusted components in penetrating oil, saving the original crankset and pedals. They replaced all the bearings, polished the chrome handlebars to a mirror shine, and even touched up the paint where the metal was exposed.</p>
+                                <p>When I came to pick it up, I was speechless. It didn't just look like a museum piece; it rode like a dream. The rod-actuated brakes worked perfectly, and the ride was incredibly smooth. They treated a rusty piece of family history with absolute reverence and mechanical brilliance. The price they charged was incredibly reasonable given the hours of labor they must have put in. They are true craftsmen.</p>
+                            </div>
+                            <div class="flex items-center gap-4 mt-auto">
+                                <div class="w-14 h-14 rounded-full bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-white font-bold text-xl">MK</div>
+                                <div>
+                                    <p class="font-bold text-slate-900">Manish Kumar</p>
+                                    <p class="text-sm text-slate-500">History Enthusiast</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Review 4 -->
+                        <div class="bg-slate-50 rounded-[2rem] p-8 md:p-10 border border-slate-200 hover:shadow-xl transition-shadow relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <i class="fa-solid fa-quote-right text-6xl text-brand-600"></i>
+                            </div>
+                            <div class="flex gap-1 text-accent-500 text-sm mb-6">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <h4 class="font-heading font-bold text-2xl text-slate-900 mb-4">"The Go-To Place for Modern Mountain Bikes"</h4>
+                            <div class="text-slate-600 mb-8 leading-relaxed space-y-4 text-sm md:text-base">
+                                <p>I recently got into mountain biking for fitness and weekend off-roading. I bought a 29er MTB online, thinking I was getting a great deal. However, it arrived in a box, poorly tuned, and with the gears skipping terribly. I struggled with it for a week before bringing it to Shivam Cycle Store in frustration.</p>
+                                <p>The staff didn't judge me for buying online. Instead, they took the bike in and gave it a comprehensive diagnostic. They explained that the factory assembly is often rushed. They bled the hydraulic disc brakes (which were spongy out of the box), re-tensioned the derailleur cables, aligned the hanger, and even adjusted the pre-load on my suspension fork to match my body weight.</p>
+                                <p>The transformation was unbelievable. It felt like a completely different, much more expensive bicycle. From that day on, I decided I would never buy cycling gear online again. Shivam Cycle Store has a fantastic inventory of helmets, hydration packs, and high-grip pedals right here in Chakia. Their prices are highly competitive, and the added value of their expert advice and free installation makes them the clear choice. Support your local bike shop!</p>
+                            </div>
+                            <div class="flex items-center gap-4 mt-auto">
+                                <div class="w-14 h-14 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white font-bold text-xl">VJ</div>
+                                <div>
+                                    <p class="font-bold text-slate-900">Vikash Jha</p>
+                                    <p class="text-sm text-slate-500">Amateur MTB Rider</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Review 5 -->
+                        <div class="bg-slate-50 rounded-[2rem] p-8 md:p-10 border border-slate-200 hover:shadow-xl transition-shadow relative overflow-hidden group md:col-span-2 lg:col-span-1">
+                            <div class="absolute top-0 right-0 p-6 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <i class="fa-solid fa-quote-right text-6xl text-brand-600"></i>
+                            </div>
+                            <div class="flex gap-1 text-accent-500 text-sm mb-6">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                            <h4 class="font-heading font-bold text-2xl text-slate-900 mb-4">"Dependable Daily Commuter Support"</h4>
+                            <div class="text-slate-600 mb-8 leading-relaxed space-y-4 text-sm md:text-base">
+                                <p>I rely on my cycle to commute 8 kilometers to my shop every single day, rain or shine. Because I ride so much in heavy traffic and dusty conditions, my bike takes a beating. Shivam Cycle Store is my lifeline. They know my bike inside out.</p>
+                                <p>What I appreciate most is their honesty. There was a time I went in asking them to replace my entire cassette because the chain was slipping. The mechanic inspected it, cleaned it thoroughly, and showed me that it was just a stiff chain link caused by mud buildup. He fixed it for practically nothing instead of charging me thousands for a new part I didn't need. You can't buy that kind of integrity.</p>
+                                <p>They always stock the specific puncture-resistant tires I prefer, and they fit me in for quick repairs even when they are busy. For anyone who uses a bicycle for serious daily transport in the Chakia region, this is the only shop you should trust.</p>
+                            </div>
+                            <div class="flex items-center gap-4 mt-auto">
+                                <div class="w-14 h-14 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center text-white font-bold text-xl">ST</div>
+                                <div>
+                                    <p class="font-bold text-slate-900">Sanjay Tiwari</p>
+                                    <p class="text-sm text-slate-500">Daily Commuter</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- CONTACT PAGE -->
+        <div id="contact" class="page-view">
+            <section class="py-24 bg-gradient-primary relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mr-32 -mt-32 w-[500px] h-[500px] rounded-full border-[40px] border-white/5 blur-xl"></div>
+                <div class="absolute bottom-0 left-0 -ml-32 -mb-32 w-[400px] h-[400px] rounded-full bg-brand-500/20 blur-3xl"></div>
+                
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="text-center mb-16">
+                        <h2 class="text-brand-400 font-bold tracking-wider uppercase text-sm mb-3">Get in Touch</h2>
+                        <h3 class="font-heading text-4xl md:text-5xl font-extrabold text-white">Visit or <span class="text-brand-400">Message Us</span></h3>
+                    </div>
+
+                    <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-stretch mb-24">
+                        
+                        <!-- Contact Information Side -->
+                        <div class="lg:w-5/12 flex flex-col justify-between">
+                            <div class="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 h-full">
+                                <h4 class="font-heading font-bold text-2xl text-white mb-8 border-b border-white/10 pb-4">Store Details</h4>
+                                
+                                <div class="space-y-8">
+                                    <div class="flex items-start">
+                                        <div class="w-12 h-12 bg-brand-500/20 rounded-xl flex items-center justify-center text-brand-400 mr-5 flex-shrink-0">
+                                            <i class="fa-solid fa-map-location-dot text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-brand-200 font-semibold uppercase tracking-wider mb-1">Location</p>
+                                            <p class="text-white text-lg font-medium leading-tight">Motihari road, Gokul market,</p>
+                                            <p class="text-white text-lg font-medium leading-tight">Chakia, East champran,</p>
+                                            <p class="text-brand-400 text-lg font-bold">Bihar, Bihar:-845412</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="flex items-start">
+                                        <div class="w-12 h-12 bg-brand-500/20 rounded-xl flex items-center justify-center text-brand-400 mr-5 flex-shrink-0">
+                                            <i class="fa-solid fa-envelope text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-brand-200 font-semibold uppercase tracking-wider mb-1">Email</p>
+                                            <a href="mailto:shivamcyclestore@gmail.com" class="text-white text-lg font-medium hover:text-brand-400 transition-colors">shivamcyclestore@gmail.com</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-start">
+                                        <div class="w-12 h-12 bg-brand-500/20 rounded-xl flex items-center justify-center text-brand-400 mr-5 flex-shrink-0">
+                                            <i class="fa-solid fa-clock text-xl"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-brand-200 font-semibold uppercase tracking-wider mb-1">Timing</p>
+                                            <p class="text-white text-lg font-medium">Mon - Sun: 9:00 AM - 8:00 PM</p>
+                                            <p class="text-brand-400 text-sm mt-1">Open all 7 days</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- FormSubmit Contact Form -->
+                        <div class="lg:w-7/12">
+                            <div class="bg-white rounded-[2rem] p-8 md:p-10 shadow-2xl h-full border border-slate-100">
+                                <div class="mb-8">
+                                    <h3 class="font-heading text-2xl font-bold text-slate-900 mb-2">Send an automated email</h3>
+                                    <p class="text-slate-500 text-sm">Fill out the form below. It sends an email directly to our store inbox instantly.</p>
+                                </div>
+                                
+                                <form action="https://formsubmit.co/shivamcyclestore@gmail.com" method="POST" class="space-y-6">
+                                    <input type="hidden" name="_subject" value="New Website Inquiry - Shivam Cycle Store">
+                                    <input type="hidden" name="_captcha" value="false">
+                                    <input type="hidden" name="_template" value="table">
+
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div>
+                                            <label for="name" class="block text-sm font-bold text-slate-700 mb-2">Full Name <span class="text-red-500">*</span></label>
+                                            <input type="text" name="Name" id="name" required class="w-full px-5 py-4 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none transition-all text-slate-900 placeholder:text-slate-400 font-medium" placeholder="E.g. Rahul Kumar">
+                                        </div>
+                                        
+                                        <div>
+                                            <label for="phone" class="block text-sm font-bold text-slate-700 mb-2">Phone Number <span class="text-red-500">*</span></label>
+                                            <input type="tel" name="Phone" id="phone" required class="w-full px-5 py-4 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none transition-all text-slate-900 placeholder:text-slate-400 font-medium" placeholder="+91 XXXXX XXXXX">
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="email" class="block text-sm font-bold text-slate-700 mb-2">Email Address <span class="text-red-500">*</span></label>
+                                        <input type="email" name="Email" id="email" required class="w-full px-5 py-4 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none transition-all text-slate-900 placeholder:text-slate-400 font-medium" placeholder="rahul@example.com">
+                                    </div>
+                                    
+                                    <div>
+                                        <label for="message" class="block text-sm font-bold text-slate-700 mb-2">Your Message <span class="text-slate-400 font-normal text-xs ml-1">(Optional)</span></label>
+                                        <textarea name="Message" id="message" rows="4" class="w-full px-5 py-4 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none transition-all resize-none text-slate-900 placeholder:text-slate-400 font-medium" placeholder="I am looking for a gear cycle under 15k..."></textarea>
+                                    </div>
+                                    
+                                    <button type="submit" class="w-full bg-slate-900 hover:bg-brand-600 text-white font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-brand-500/40 transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-3 mt-2 overflow-hidden relative group">
+                                        <span class="relative z-10">Send Message Now</span>
+                                        <i class="fa-solid fa-paper-plane relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+                                        <div class="absolute inset-0 h-full w-0 bg-brand-600 transition-all duration-300 ease-out group-hover:w-full z-0"></div>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NEW EXPANDED CONTENT: FAQ, Directions, Policies -->
+                    <div class="bg-white rounded-[2.5rem] p-8 md:p-16 shadow-2xl relative z-20 space-y-16">
+                        
+                        <!-- FAQ Section -->
+                        <div>
+                            <div class="text-center mb-10">
+                                <h3 class="font-heading text-3xl font-bold text-slate-900">Extensive Frequently Asked Questions</h3>
+                                <p class="text-slate-500 mt-2">Find quick answers to the most common queries about our store and services.</p>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                                    <h4 class="font-bold text-slate-900 mb-2 flex items-start gap-2"><i class="fa-solid fa-circle-question text-brand-500 mt-1"></i> Do you offer test rides?</h4>
+                                    <p class="text-slate-600 text-sm leading-relaxed">Yes! We strongly encourage test rides for all adult and youth bicycles. Finding the right geometry and fit is crucial. You can test ride bicycles safely within the Gokul Market compound before making a final decision.</p>
+                                </div>
+                                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                                    <h4 class="font-bold text-slate-900 mb-2 flex items-start gap-2"><i class="fa-solid fa-circle-question text-brand-500 mt-1"></i> Do you repair all types of cycles?</h4>
+                                    <p class="text-slate-600 text-sm leading-relaxed">Yes! From basic single-speed roadsters to complex geared mountain bikes and modern hydraulic disc brake systems, our mechanics are trained to service virtually any type of bicycle.</p>
+                                </div>
+                                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                                    <h4 class="font-bold text-slate-900 mb-2 flex items-start gap-2"><i class="fa-solid fa-circle-question text-brand-500 mt-1"></i> Do you buy or exchange old bicycles?</h4>
+                                    <p class="text-slate-600 text-sm leading-relaxed">Currently, we do not buy used bicycles directly for cash. However, during select promotional periods, we offer an exchange bonus where you can trade in your old cycle for a discount on a new purchase. Please contact the store for current offers.</p>
+                                </div>
+                                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                                    <h4 class="font-bold text-slate-900 mb-2 flex items-start gap-2"><i class="fa-solid fa-circle-question text-brand-500 mt-1"></i> How long does a standard service take?</h4>
+                                    <p class="text-slate-600 text-sm leading-relaxed">A standard tune-up usually takes 1 to 2 hours, and we often do it on the same day if you drop it off in the morning. Full overhauls require leaving the bicycle with us for 24 to 48 hours to ensure meticulous attention to detail.</p>
+                                </div>
+                                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                                    <h4 class="font-bold text-slate-900 mb-2 flex items-start gap-2"><i class="fa-solid fa-circle-question text-brand-500 mt-1"></i> Do you provide free servicing on new bikes?</h4>
+                                    <p class="text-slate-600 text-sm leading-relaxed">Absolutely. Every new bicycle purchased at Shivam Cycle Store comes with one complimentary 'first service' valid within 30 days of purchase. This is vital as new brake and gear cables tend to stretch during their first few rides.</p>
+                                </div>
+                                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                                    <h4 class="font-bold text-slate-900 mb-2 flex items-start gap-2"><i class="fa-solid fa-circle-question text-brand-500 mt-1"></i> What payment methods do you accept?</h4>
+                                    <p class="text-slate-600 text-sm leading-relaxed">We accept Cash, UPI (Google Pay, PhonePe, Paytm), and major Credit/Debit cards. We also occasionally partner with finance companies to offer EMI options on premium bicycles above ₹15,000.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Directions & Parking -->
+                        <div class="border-t border-slate-200 pt-16">
+                            <h3 class="font-heading text-3xl font-bold text-slate-900 mb-8 text-center">Detailed Driving Directions & Parking</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                                <div>
+                                    <h4 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-3"><i class="fa-solid fa-route text-brand-500"></i> How to Reach Us</h4>
+                                    <div class="prose text-slate-600">
+                                        <p><strong>From Chakia Railway Station:</strong> Head east on the Station Road for about 1.5 km. Take a left turn onto Motihari Road at the main town crossing. Continue straight for 500 meters. Gokul Market will be on your right-hand side. Look for the large green Shivam Cycle Store signboard.</p>
+                                        <p><strong>From Motihari Highway (NH-28):</strong> Take the exit for Chakia town. Follow the main Motihari Road heading towards the town center. After passing the local block office, continue for another 1 km. You will find Gokul Market on your left side before reaching the main town crossing.</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-3"><i class="fa-solid fa-square-parking text-brand-500"></i> Parking Information</h4>
+                                    <div class="prose text-slate-600">
+                                        <p>We understand that purchasing a bicycle often means you need space to load it into your vehicle. Fortunately, Gokul Market features a dedicated, spacious parking area right in front of our storefront.</p>
+                                        <p><strong>Two-Wheelers:</strong> Ample free parking is available directly outside the shop entrance.</p>
+                                        <p><strong>Four-Wheelers/SUVs:</strong> There is designated car parking within the market compound. If you are purchasing multiple bicycles, our staff will gladly assist you in bringing the boxed or fully assembled cycles directly to your vehicle and helping you securely load them.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Store Policies -->
+                        <div class="bg-slate-900 rounded-3xl p-10 text-white mt-16">
+                            <h3 class="font-heading text-2xl font-bold text-white mb-6 text-center"><i class="fa-solid fa-file-contract text-brand-400 mr-2"></i> Official Store Policies</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm text-slate-300">
+                                <div>
+                                    <h4 class="font-bold text-brand-400 mb-3 text-base uppercase tracking-wider">Return & Refund Policy</h4>
+                                    <p class="leading-relaxed mb-3">Bicycles are mechanical vehicles. Once a bicycle has been ridden outdoors, it cannot be returned for a full refund as it is no longer considered "new" condition. We offer a 24-hour return window for unused bicycles in original condition (e.g., if you bought it as a surprise gift and the size is wrong). Accessories in unopened packaging can be returned within 7 days with a valid receipt.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-brand-400 mb-3 text-base uppercase tracking-wider">Warranty Policy</h4>
+                                    <p class="leading-relaxed mb-3">We honor all manufacturer warranties. Most premium frames come with a lifetime or 5-year warranty against manufacturing defects. Components (gears, brakes) usually carry a 6 to 12-month warranty. Wear and tear items (tires, tubes, brake pads, chains) are strictly excluded from warranty coverage. Accidental damage or misuse voids all warranties.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-brand-400 mb-3 text-base uppercase tracking-wider">Service Guarantee</h4>
+                                    <p class="leading-relaxed mb-3">We stand by the quality of our mechanical work. If you bring your bicycle in for a specific repair and experience the exact same issue within 72 hours due to our oversight, we will rectify the problem free of labor charges. Note that this does not apply to new punctures or issues caused by riding conditions after the service.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- FOOTER (Always visible) -->
+    <footer class="bg-white text-slate-500 py-12 border-t border-slate-200 mt-auto relative z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <!-- Brand -->
+                <div class="flex items-center flex-col md:flex-row gap-4">
+                    <div class="w-10 h-10 bg-brand-50 rounded-xl flex items-center justify-center border border-brand-100">
+                        <i class="fa-solid fa-bicycle text-brand-600"></i>
+                    </div>
+                    <div class="text-center md:text-left">
+                        <span class="font-heading font-bold text-slate-900 text-xl block">Shivam Cycle Store</span>
+                        <span class="text-sm font-semibold text-slate-400">Motihari road, Gokul market, Chakia, East champran, Bihar, Bihar:-845412</span>
+                    </div>
+                </div>
+                
+                <!-- Links -->
+                <div class="flex gap-6 text-sm font-semibold">
+                    <a href="#home" class="hover:text-brand-600 transition-colors">Home</a>
+                    <a href="#about" class="hover:text-brand-600 transition-colors">About</a>
+                    <a href="#services" class="hover:text-brand-600 transition-colors">Services</a>
+                </div>
+
+                <!-- Copyright -->
+                <div class="text-sm">
+                    &copy; <span id="year"></span> All Rights Reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts for SPA Functionality -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set current year in footer
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            // DOM Elements
+            const pages = document.querySelectorAll('.page-view');
+            const navLinksDesktop = document.querySelectorAll('.nav-link');
+            const navLinksMobile = document.querySelectorAll('.mobile-link');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const nav = document.getElementById('navbar');
+
+            // --- ROUTER LOGIC ---
+            function navigateToPage() {
+                let hash = window.location.hash || '#home';
+                let targetId = hash.substring(1);
+                let pageFound = false;
+
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+
+                pages.forEach(page => {
+                    if (page.id === targetId) {
+                        void page.offsetWidth; // Force reflow
+                        page.classList.add('active');
+                        pageFound = true;
+                    }
+                });
+
+                if (!pageFound) {
+                    document.getElementById('home').classList.add('active');
+                    targetId = 'home';
+                    history.replaceState(null, null, '#home');
+                }
+
+                updateNavLinks(targetId, navLinksDesktop);
+                updateNavLinks(targetId, navLinksMobile);
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                if (!mobileMenu.classList.contains('hidden')) {
+                    toggleMobileMenu();
+                }
+            }
+
+            function updateNavLinks(activeId, linksNodeList) {
+                linksNodeList.forEach(link => {
+                    let hrefTarget = link.getAttribute('href').substring(1);
+                    if (hrefTarget === activeId) {
+                        if(link.classList.contains('nav-link')) {
+                            if(activeId !== 'contact') {
+                                link.classList.add('bg-white', 'text-slate-900', 'shadow-sm');
+                                link.classList.remove('text-slate-600');
+                            }
+                        } else {
+                             link.classList.add('text-brand-600');
+                             link.classList.remove('text-slate-800');
+                        }
+                    } else {
+                        if(link.classList.contains('nav-link')) {
+                             if(hrefTarget !== 'contact') {
+                                link.classList.remove('bg-white', 'text-slate-900', 'shadow-sm');
+                                link.classList.add('text-slate-600');
+                             }
+                        } else {
+                            if(hrefTarget !== 'contact') {
+                                link.classList.remove('text-brand-600');
+                                link.classList.add('text-slate-800');
+                            }
+                        }
+                    }
+                });
+            }
+
+            window.addEventListener('hashchange', navigateToPage);
+            navigateToPage();
+
+            // Mobile Menu Toggle logic
+            function toggleMobileMenu() {
+                mobileMenu.classList.toggle('hidden');
+                const icon = mobileMenuBtn.querySelector('i');
+                if (mobileMenu.classList.contains('hidden')) {
+                    icon.classList.replace('fa-xmark', 'fa-bars');
+                } else {
+                    icon.classList.replace('fa-bars', 'fa-xmark');
+                }
+            }
+            mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+            // Navbar Glass effect on scroll
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 20) {
+                    nav.classList.add('shadow-md');
+                } else {
+                    nav.classList.remove('shadow-md');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
